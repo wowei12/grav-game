@@ -1,2 +1,2 @@
 # grav-game
-Gravity game with weird mechanics.
+Gravity game with cool*mechanics.
