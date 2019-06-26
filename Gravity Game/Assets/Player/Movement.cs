@@ -3,7 +3,7 @@
 public class Movement : MonoBehaviour
 {
 
-    public float walkSpeed = 3.7f;
+    public float thrust = 100f;
     public float mouseSensitivity = 299f;
 
     public float rotation_x;
@@ -22,14 +22,27 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void Update() 
     {
-        Vector3 input = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
-        Vector3 inputDir = input.normalized;
-     
-        float speed = walkSpeed * inputDir.magnitude;
-        transform.Translate(inputDir * speed * Time.deltaTime, Space.Self);
+        // translation
+        // Vector3 input = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
+        // Vector3 inputDir = input.normalized;
 
 
+        // inputDir = transform.forward * inputDir.x + transform.right * inputDir.z;
+        
+//        Vector3 localVelDir = transform.InverseTransformDirection(inputDir);
 
+        var forwardSpeed = 3.7f * Input.GetAxisRaw("Vertical");
+        var sidewaysSpeed = 3.7f * Input.GetAxisRaw("Horizontal");
+        var forwardVelocity = transform.forward * forwardSpeed;
+        var sidewaysVelocity = transform.right * sidewaysSpeed;
+        
+        var rigidbody = GetComponent<Rigidbody>();
+        rigidbody.velocity = forwardVelocity + sidewaysVelocity;
+        
+        // transform.GetComponent<Rigidbody>().AddRelativeForce(inputDir * thrust);
+
+
+        // rotation
         Vector2 mouseInput = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
 
         rotation_y += mouseInput.x * mouseSensitivity * Time.deltaTime;
@@ -44,7 +57,6 @@ public class Movement : MonoBehaviour
             cube.transform.localRotation = Quaternion.Euler(Vector3.right * rotation_x);
 
         }
-
 
     }
 }
