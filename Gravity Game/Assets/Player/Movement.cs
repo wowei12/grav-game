@@ -37,7 +37,8 @@ public class Movement : MonoBehaviour
         var sidewaysVelocity = transform.right * sidewaysSpeed;
         
         var rigidbody = GetComponent<Rigidbody>();
-        rigidbody.velocity = forwardVelocity + sidewaysVelocity;
+        var falltime = rigidbody.velocity.y * Vector3.up;
+        rigidbody.velocity = forwardVelocity + sidewaysVelocity + falltime;
         
         // transform.GetComponent<Rigidbody>().AddRelativeForce(inputDir * thrust);
 
