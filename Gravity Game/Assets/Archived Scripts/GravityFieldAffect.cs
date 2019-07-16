@@ -32,6 +32,7 @@ public class GravityFieldAffect : MonoBehaviour
             }
         }        
     }
+    
     void OnTriggerStay(Collider c)
     {
         Rigidbody rb = c.gameObject.transform.GetComponent<Rigidbody>(); 

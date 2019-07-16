@@ -72,19 +72,13 @@ public class Movement : MonoBehaviour
         }
 
         //flip rotation
-        // jump is obseleted
         if (Input.GetKeyDown(KeyCode.F) && rotatable)
         {
             if (rb.useGravity == false && !(Mathf.Approximately(Vector3.Dot(transform.up, -nextRotate), 1)))
             {
-                Debug.Log(transform.up + " : " + -nextRotate);
                 oldRot = this.transform.rotation;
 
                 var newUp = -nextRotate;
-                // var angleNew = (Vector3.Angle(transform.forward, Vector3.forward));
-
-                // var angleNew = Vector3.SignedAngle(reference.transform.forward, transform.forward, transform.up);
-
                 var angleNew = Vector3.SignedAngle(nextRotate, transform.forward, transform.up);
 
                 if (angleNew > 90)
@@ -97,13 +91,11 @@ public class Movement : MonoBehaviour
                 }
                 
                 var newForward = Vector3.Cross(this.transform.right, newUp);
-
                 newRot = Quaternion.AngleAxis(angleNew, newUp) * Quaternion.LookRotation(newForward, newUp);
 
                 StartCoroutine("rotateTowards");
 
                 reference.transform.rotation = Quaternion.LookRotation(newForward, newUp);
-                //this.transform.rotation = newRot; 
                 rotatable = false;
             }
             else if (rb.useGravity == true && !(Mathf.Approximately(Vector3.Dot(transform.up, Vector3.up), 1)))
@@ -111,7 +103,6 @@ public class Movement : MonoBehaviour
                 oldRot = this.transform.rotation;
 
                 var newUp = Vector3.up;
-                // var angleNew = Vector3.SignedAngle(reference.transform.forward, transform.forward, transform.up);
                 var angleNew = Vector3.SignedAngle(-Vector3.up, transform.forward, transform.up);
 
                 if (angleNew > 90)
@@ -130,8 +121,6 @@ public class Movement : MonoBehaviour
                 StartCoroutine("rotateTowards");
 
                 reference.transform.rotation = Quaternion.LookRotation(Vector3.forward, newUp);
-
-                //this.transform.rotation = newRot; 
                 rotatable = false;
             }
             // jump archived
